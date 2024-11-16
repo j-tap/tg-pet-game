@@ -47,10 +47,11 @@ export function startHungerTimer(scene) {
 }
 
 export function getHunger() {
+  const defaultHunger = 1;
   const lastUpdate = parseInt(localStorage.getItem('lastHungerUpdate'), 10) || Date.now();
   const elapsedTime = Date.now() - lastUpdate;
 
-  let storedHunger = parseInt(localStorage.getItem('hunger'), 10) || 0;
+  let storedHunger = parseInt(localStorage.getItem('hunger'), 10) || defaultHunger;
   const missedIncrements = Math.floor(elapsedTime / HUNGER_DELAY);
 
   storedHunger = Math.min(HUNGER_MAX, storedHunger + missedIncrements);

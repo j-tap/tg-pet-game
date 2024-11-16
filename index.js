@@ -1,16 +1,16 @@
 /**
  * Импортируем настройки из лежащего в той же папке файла .env
  */
-require("dotenv").config();
+require('dotenv').config();
 
 const { TELEGRAM_API_TOKEN, GAME_URL, GAME_NAME, PORT } = process.env;
 
 /**
  * Подключаем библиотеки для работы с вебом, раздачи файлов и работы с Телеграм
  */
-const express = require("express");
-const path = require("path");
-const TgBot = require("node-telegram-bot-api");
+const express = require('express');
+const path = require('path');
+const TgBot = require('node-telegram-bot-api');
 
 /**
  * Инициализируем телеграм-бота
@@ -23,20 +23,20 @@ const queries = {};
  * К сообщению с игрой можно прикрепить кнопку для начала игры
  * и кнопку для отправки её друзьям, мы реализуем обе
  */
-bot.on("message", (msg) => {
+bot.on('message', (msg) => {
   const { id } = msg.chat;
 
   bot.sendGame(id, GAME_NAME, {
-    "reply_markup": {
-      "inline_keyboard": [
+    'reply_markup': {
+      'inline_keyboard': [
         [
           {
-            text: "Играть",
-            callback_game: "",
+            text: 'Играть',
+            callback_game: '',
           },
           {
-            text: "Отправить друзьям",
-            switch_inline_query: "",
+            text: 'Отправить друзьям',
+            switch_inline_query: '',
           },
         ],
       ],
@@ -48,9 +48,9 @@ bot.on("message", (msg) => {
  * Ответ на запросы inline_query позволит нам отправлять игру друзьям в любом чате,
  * просто написав в поле ввода сообщений юзернейм бота с игрой
  */
-bot.on("inline_query", (query) => {
+bot.on('inline_query', (query) => {
   bot.answerInlineQuery(query.id, [{
-    type: "game",
+    type: 'game',
     id: GAME_NAME,
     game_short_name: GAME_NAME,
   }])
@@ -61,7 +61,7 @@ bot.on("inline_query", (query) => {
  * специально помеченную ссылку на игру — так мы будем знать,
  * кто именно и из какого чата сейчас играет в игру
  */
-bot.on("callback_query", (query) => {
+bot.on('callback_query', (query) => {
   queries[query.id] = query;
 
   bot.answerCallbackQuery(query.id, { url: `${GAME_URL}?id=${query.id}` });
@@ -72,11 +72,11 @@ bot.on("callback_query", (query) => {
  */
 const app = express();
 
-// Настраиваем статическую раздачу для папки "game"
-app.use('/game/tg-pet', express.static(path.join(__dirname, 'game')));
+// Статическая раздача файлов из папки /game
+app.use('/game', express.static(path.join(__dirname, 'game')));
 
-// Главная страница игры
-app.get('/game/tg-pet/', (req, res) => {
+// Главная страница — отдаём index.html
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'game', 'index.html'));
 });
 
@@ -84,7 +84,7 @@ app.get('/game/tg-pet/', (req, res) => {
  * Главная функция сервера — отправка очков, полученных пользователем в игре, на сервер Telegram
  * Она принимает количество очков и идентификатор пользователя, который мы выдали ранее
  */
-app.get("/highscore/:score", function(req, res, next) {
+app.get('/highscore/:score', function(req, res, next) {
   if (!queries[req.query.id]) return next();
 
   const query = queries[req.query.id];
@@ -103,9 +103,9 @@ app.get("/highscore/:score", function(req, res, next) {
   }
 
   bot.setGameScore(query.from.id, score, options).then((res) => {
-    console.log("Score updated!", res);
+    console.log('Score updated!', res);
   }).catch((err) => {
-    console.log("Score update error!", err);
+    console.log('Score update error!', err);
   });
 
   delete queries[req.query.id];
