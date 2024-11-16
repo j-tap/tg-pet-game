@@ -3,19 +3,19 @@
  */
 require("dotenv").config();
 
-const { TELEGRAM_API_TOKEN, GAME_URL, GAME_NAME } = process.env;
+const { TELEGRAM_API_TOKEN, GAME_URL, GAME_NAME, PORT } = process.env;
 
 /**
  * Подключаем библиотеки для работы с вебом, раздачи файлов и работы с Телеграм
  */
 const express = require("express");
 const path = require("path");
-const TelegramBot = require("node-telegram-bot-api");
+const TgBot = require("node-telegram-bot-api");
 
 /**
  * Инициализируем телеграм-бота
  */
-const bot = new TelegramBot(TELEGRAM_API_TOKEN, { polling: true });
+const bot = new TgBot(TELEGRAM_API_TOKEN, { polling: true });
 const queries = {};
 
 /**
@@ -112,4 +112,6 @@ app.get("/highscore/:score", function(req, res, next) {
 /**
  * Запускаем наш сервер, всё готово к работе!
  */
-app.listen(3000);
+app.listen(PORT);
+
+console.log(`Server started on port ${PORT}`);
