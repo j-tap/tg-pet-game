@@ -73,7 +73,7 @@ bot.on('callback_query', (query) => {
 const app = express();
 
 // Статическая раздача файлов из папки /game/tg-pet/game
-app.use('/game/tg-pet', express.static(path.join(__dirname, 'game')));
+app.use('/game', express.static(path.join(__dirname, 'game')));
 
 // Отдача главной страницы
 app.get('/', (req, res) => {
