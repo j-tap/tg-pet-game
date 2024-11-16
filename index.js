@@ -72,12 +72,12 @@ bot.on("callback_query", (query) => {
  */
 const app = express();
 
-// Статическая раздача файлов из папки /game
-app.use(express.static(path.join(__dirname, "game")));
+// Настраиваем статическую раздачу для папки "game"
+app.use('/game/tg-pet', express.static(path.join(__dirname, 'game')));
 
-// Главная страница — отдаём index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "game", "index.html"));
+// Главная страница игры
+app.get('/game/tg-pet/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'game', 'index.html'));
 });
 
 /**
