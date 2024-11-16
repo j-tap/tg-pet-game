@@ -73,7 +73,7 @@ bot.on('callback_query', (query) => {
 const app = express();
 
 // Статическая раздача файлов из папки /game
-app.use('/game', express.static(path.join(__dirname, 'game')));
+app.use(express.static(path.join(__dirname, 'game')));
 
 // Главная страница — отдаём index.html
 app.get('/', (req, res) => {
@@ -112,9 +112,6 @@ app.get('/highscore/:score', function(req, res, next) {
   res.end();
 });
 
-/**
- * Запускаем наш сервер, всё готово к работе!
- */
-app.listen(PORT);
-
-console.log(`Server started on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на http://localhost:${PORT}`);
+});
