@@ -73,7 +73,7 @@ bot.on('callback_query', (query) => {
 const app = express();
 
 // Статическая раздача файлов из папки /game
-app.use(express.static(path.join(__dirname, 'game')));
+app.use('/game', express.static(path.join(__dirname, 'game')));
 
 // Главная страница — отдаём index.html
 app.get('/', (req, res) => {
