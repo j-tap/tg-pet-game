@@ -1,4 +1,4 @@
-import { preload, create, update } from 'mainScene.js';
+import { preload, create, update } from './game/mainScene.js';
 
 const config = {
   autoFocus: true,
