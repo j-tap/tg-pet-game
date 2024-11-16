@@ -10,17 +10,17 @@ let feedBar;
 let previousHunger = hunger;
 
 export function preload() {
-  this.load.image('pet', 'assets/images/cat.png');
-  this.load.image('btn_green', 'assets/images/ui/btn_green.png');
-  this.load.image('bar', 'assets/images/ui/bar.png');
-  this.load.image('pet_eye-close', 'assets/images/cat_eye-close.png');
-  this.load.image('room-1', 'assets/images/room-1.png');
-  this.load.image('food', 'assets/images/fish.png');
+  this.load.image('pet', 'game/assets/images/cat.png');
+  this.load.image('btn_green', 'game/assets/images/ui/btn_green.png');
+  this.load.image('bar', 'game/assets/images/ui/bar.png');
+  this.load.image('pet_eye-close', 'game/assets/images/cat_eye-close.png');
+  this.load.image('room-1', 'game/assets/images/room-1.png');
+  this.load.image('food', 'game/assets/images/fish.png');
 
-  this.load.audio('track1', 'assets/musics/track1.mp3');
-  this.load.audio('track2', 'assets/musics/track2.mp3');
-  this.load.audio('eatSound', 'assets/sounds/eat.mp3');
-  this.load.audio('meowSound', 'assets/sounds/meow.mp3');
+  this.load.audio('track1', 'game/assets/musics/track1.mp3');
+  this.load.audio('track2', 'game/assets/musics/track2.mp3');
+  this.load.audio('eatSound', 'game/assets/sounds/eat.mp3');
+  this.load.audio('meowSound', 'game/assets/sounds/meow.mp3');
 }
 
 export function create() {
