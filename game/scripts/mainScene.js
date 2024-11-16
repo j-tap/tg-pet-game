@@ -58,6 +58,19 @@ export function update() {
 
 function resizeGame(scene) {
   const { width, height } = scene.scale;
-  background.setDisplaySize(width, height).setPosition(0, height);
+  const bgTexture = background.texture;
+  const bgWidth = bgTexture.source[0].width; // Оригинальная ширина фона
+  const bgHeight = bgTexture.source[0].height; // Оригинальная высота фона
+
+  // Вычисляем масштаб с сохранением пропорций
+  const scale = Math.max(width / bgWidth, height / bgHeight);
+
+  // Применяем масштаб
+  background.setScale(scale).setOrigin(0.5, 0.5);
+
+  // Центрируем фон
+  background.setPosition(width / 2, height / 2);
+
+  // Обновляем позицию питомца
   pet.setPosition(width / 2, height / 1.5);
 }
