@@ -1,6 +1,6 @@
 import { createBtn, createBar } from './utils/ui.js';
 import { playRandomTrack } from './utils/audio.js';
-import { blink } from './utils/pet.js';
+import { blink, setBgSize } from './utils/assets.js';
 import { feedPet, startHungerTimer, hunger } from './hunger.js';
 
 export let pet;
@@ -29,9 +29,8 @@ export function create() {
   playRandomTrack(this, ['track1', 'track2']);
   startHungerTimer(this);
 
-  background = this.add.image(0, height, 'room-1')
-    .setOrigin(0, 1)
-    .setDisplaySize(width, height);
+  background = this.add.image(0, height, 'room-1');
+  setBgSize(this, background);
 
   pet = this.add.image(width / 2, height / 1.5, 'pet').setScale(0.5);
 
@@ -58,19 +57,7 @@ export function update() {
 
 function resizeGame(scene) {
   const { width, height } = scene.scale;
-  const bgTexture = background.texture;
-  const bgWidth = bgTexture.source[0].width; // Оригинальная ширина фона
-  const bgHeight = bgTexture.source[0].height; // Оригинальная высота фона
-
-  // Вычисляем масштаб с сохранением пропорций
-  const scale = Math.max(width / bgWidth, height / bgHeight);
-
-  // Применяем масштаб
-  background.setScale(scale).setOrigin(0.5, 0.5);
-
-  // Центрируем фон
-  background.setPosition(width / 2, height / 2);
-
+  setBgSize(scene, background);
   // Обновляем позицию питомца
   pet.setPosition(width / 2, height / 1.5);
 }
