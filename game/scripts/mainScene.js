@@ -1,7 +1,7 @@
-import { createBtn, createBar } from 'utils/ui.js';
-import { playRandomTrack } from 'utils/audio.js';
-import { blink } from 'utils/pet.js';
-import { feedPet, startHungerTimer, hunger } from 'hunger.js';
+import { createBtn, createBar } from './utils/ui.js';
+import { playRandomTrack } from './utils/audio.js';
+import { blink } from './utils/pet.js';
+import { feedPet, startHungerTimer, hunger } from './hunger.js';
 
 export let pet;
 
