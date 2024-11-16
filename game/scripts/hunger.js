@@ -29,8 +29,6 @@ export function feedPet(scene, pet) {
   if (hunger > 0) {
     updateHunger(hunger - 1); // Уменьшаем голод
     addFood(scene, pet);
-  } else {
-    alert('Ваш питомец уже сыт!');
   }
 }
 

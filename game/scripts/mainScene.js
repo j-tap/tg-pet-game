@@ -6,6 +6,7 @@ import { feedPet, startHungerTimer, hunger } from './hunger.js';
 export let pet;
 
 let background;
+let feedButton;
 let feedBar;
 let previousHunger = hunger;
 
@@ -41,8 +42,7 @@ export function create() {
   });
 
   feedBar = createBar(this, 150, 50, 200, 30, 'Сытость', 100 - (100 / 10) * hunger);
-
-  const feedButton = createBtn(this, 150, 100, 200, 50, 'Покормить');
+  feedButton = createBtn(this, 150, 100, 200, 50, 'Покормить');
   feedButton.on('pointerdown', () => feedPet(this, pet));
 
   this.scale.on('resize', () => resizeGame(this));
@@ -51,6 +51,7 @@ export function create() {
 export function update() {
   if (hunger !== previousHunger) {
     previousHunger = hunger;
+    feedButton.setAlpha(hunger > 0 ? 1 : 0);
     feedBar.updateValue(100 - (100 / 10) * hunger);
   }
 }
