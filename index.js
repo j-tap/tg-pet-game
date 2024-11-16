@@ -72,10 +72,13 @@ bot.on("callback_query", (query) => {
  */
 const app = express();
 
-/**
- * Раздаём файлы: в нашем случае они лежат рядом, в папке t-rex-game
- */
-app.use(express.static(path.join(__dirname, "t-rex-game")));
+// Статическая раздача файлов из папки /game
+app.use(express.static(path.join(__dirname, "game")));
+
+// Главная страница — отдаём index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "game", "index.html"));
+});
 
 /**
  * Главная функция сервера — отправка очков, полученных пользователем в игре, на сервер Telegram
