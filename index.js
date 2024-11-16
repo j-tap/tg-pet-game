@@ -76,7 +76,7 @@ const app = express();
 app.use('/game/tg-pet', express.static(path.join(__dirname, 'game')));
 
 // Отдача главной страницы
-app.get('/game/tg-pet', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'game', 'index.html'));
 });
 
